@@ -257,7 +257,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4854262364583114887}
   - component: {fileID: 4851900207617197580}
-  - component: {fileID: 4851900207617197581}
   - component: {fileID: 4851900207617197570}
   - component: {fileID: 4665772756900044934}
   - component: {fileID: 7563734472502816995}
@@ -307,45 +306,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4851900207617197581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4851900207617197583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09798183bca240f43aba369c1521393c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wcs:
-  - {fileID: 6046952085738208145}
-  - {fileID: 6046952084937797200}
-  - {fileID: 6046952086048232169}
-  - {fileID: 6046952085272671650}
-  wheels:
-  - {fileID: 4852144542749261919}
-  - {fileID: 4852301089843605495}
-  - {fileID: 4851669713937412213}
-  - {fileID: 4852202711341532953}
-  torque: 200
-  maxSteerAngle: 30
-  maxBrakeTorque: 500
-  skidSound: {fileID: 7563734472502816995}
-  highAccel: {fileID: 4665772756900044934}
-  SkidTrailPrefab: {fileID: 5992897097425895548, guid: 904c368900bf8db4189a651e3d1e1596,
-    type: 3}
-  smokePrefab: {fileID: 2475338489189768051, guid: f4bcc54c78e02504489dbcf57483df80,
-    type: 3}
-  brakeLight: {fileID: 2417476570339703378, guid: 9b280384f96a2e2488d2da120e8834dc,
-    type: 3}
-  rb: {fileID: 4851900207617197580}
-  gearLength: 3
-  lowPitch: 1
-  highPitch: 6
-  numGears: 5
-  maxSpeed: 200
 --- !u!65 &4851900207617197570
 BoxCollider:
   m_ObjectHideFlags: 0
