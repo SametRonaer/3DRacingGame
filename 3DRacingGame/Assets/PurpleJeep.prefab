@@ -916,6 +916,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7775127907402218737}
   - component: {fileID: 7775127907402218736}
+  - component: {fileID: 489060167442513530}
   m_Layer: 0
   m_Name: PurpleJeep
   m_TagString: Untagged
@@ -965,9 +966,28 @@ MonoBehaviour:
   maxSteerAngle: 30
   maxBrakeTorque: 500
   skidSound: {fileID: 0}
+  highAccel: {fileID: 0}
   SkidTrailPrefab: {fileID: 0}
   smokePrefab: {fileID: 0}
   brakeLight: {fileID: 0}
+  rb: {fileID: 0}
+  gearLength: 3
+  lowPitch: 1
+  highPitch: 6
+  numGears: 5
+  maxSpeed: 200
+--- !u!114 &489060167442513530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7775127907402218742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecda8dfc6f927f7458b259538b1d14ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7775127907777852766
 GameObject:
   m_ObjectHideFlags: 0
