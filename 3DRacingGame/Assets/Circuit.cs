@@ -6,6 +6,16 @@ public class Circuit : MonoBehaviour
 {
     public GameObject[] waypoints;
 
+    private void Start()
+    {
+        waypoints = new GameObject[transform.childCount - 1];
+        for (int i = 0; i < transform.childCount; i++)
+        {
+
+            waypoints[i] = transform.GetChild(i).gameObject;
+        }
+    }
+
     private void OnDrawGizmos()
     {
         DrawGizmos(false);
