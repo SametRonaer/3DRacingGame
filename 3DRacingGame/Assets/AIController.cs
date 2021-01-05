@@ -5,10 +5,11 @@ using UnityEngine;
 public class AIController : MonoBehaviour
 {
     public Circuit circuit;
-    public float brakingSensitivity = 1.1f;
+    public float brakingSensitivity = 3f;
     Drive ds;
     bool wpReady;
-    public float steeringSensitivity = 0.01f;
+    public float steeringSensitivity = 0.01f; // orjinal 0.3 ancak ben 0.01 kullanıyorum
+    public float accelSensitivity = 0.3f;
     Vector3 target;
     Vector3 nextTarget;
     int currentWP = 0;
@@ -24,6 +25,7 @@ public class AIController : MonoBehaviour
     }
 
     // Update is called once per frame
+    bool isJump = false;
     void Update()
     {
         if (wpReady)
@@ -40,12 +42,27 @@ public class AIController : MonoBehaviour
             float distanceFactor = distanceToTarget / totalDistanceToTarget; // İki waypoint arası mesafeyi aracın sonraki waypointe'e olan uzaklığına bölerek yüzde hesaplıyoruz
             float speedFactor = ds.currentSpeed / ds.maxSpeed; // hızımıza göre frene basma oranımızı ayarlamak için kullanıyoruz
 
-            float accel = 1f;
+            //float accel = 1f;
+            float accel = Mathf.Lerp(accelSensitivity, 1, distanceFactor);
             // Orjinal kod açıyı kullanıyor ancak ben kullanmadım ayrıca orjinal breakinSesitivity = 1
-           // float brake = Mathf.Lerp((-1 -Mathf.Abs(nextTargetAngle) * brakingSensitivity) ,1+speedFactor, 1 - distanceFactor); // waypoint'e yaklaştıkça ve viraj açısı arttıkça frene basma ölçüsünü arttırıyoruz
-            float brake = Mathf.Lerp((-1  * brakingSensitivity) ,1+speedFactor, 1 - distanceFactor); // waypoint'e yaklaştıkça ve viraj açısı arttıkça frene basma ölçüsünü arttırıyoruz
+            //float brake = Mathf.Lerp((-1 -Mathf.Abs(nextTargetAngle) * brakingSensitivity) ,1+speedFactor, 1 - distanceFactor); // waypoint'e yaklaştıkça ve viraj açısı arttıkça frene basma ölçüsünü arttırıyoruz
+           float brake = Mathf.Lerp((-1  * brakingSensitivity) ,1+speedFactor, 1 - distanceFactor); // waypoint'e yaklaştıkça ve viraj açısı arttıkça frene basma ölçüsünü arttırıyoruz
 
-            Debug.Log("Brake: "+ brake+ " Accel: "+ accel + " Speed: "+ ds.rb.velocity.magnitude);
+
+            if(Mathf.Abs(nextTargetAngle)> 20)
+            {
+                brake += 0.8f;
+                accel -= 0.8f;
+            }
+
+            if (isJump)
+            {
+                accel = 1;
+                brake = 0;
+                Debug.Log("Jump");
+            }
+
+           // Debug.Log("Brake: "+ brake+ " Accel: "+ accel + " Speed: "+ ds.rb.velocity.magnitude);
 
             //if(distanceToTarget< 5)
             //{
@@ -63,8 +80,27 @@ public class AIController : MonoBehaviour
                     currentWP = 0;
                 }
                 target = circuit.waypoints[currentWP].transform.position;
+                if(currentWP == circuit.waypoints.Length - 1)
+                {
+
+                nextTarget = circuit.waypoints[0].transform.position;
+                }
+                else
+                {
                 nextTarget = circuit.waypoints[currentWP + 1].transform.position;
+
+                }
                 totalDistanceToTarget = Vector3.Distance(target, ds.rb.gameObject.transform.position); // Sonraki waypoint için yüzde hesaplamak için kullanacağız her waypoint'i geçince yeniden hesaplanıyor
+            
+            if(ds.rb.gameObject.transform.InverseTransformPoint(target).y > 5)
+                {
+                    isJump = true;
+                }
+                else
+                {
+                    isJump = false;
+                }
+
             }
             ds.CheckForSkid();
             ds.CalculateEngineSound();
